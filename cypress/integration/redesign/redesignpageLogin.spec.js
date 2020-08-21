@@ -22,6 +22,6 @@ describe("Czy poprawnie renderuje Login", () => {
     cy.get(":nth-child(2) > .input").type("loremipsum");
   });
   it("should get a login button", () => {
-    cy.get(".login-form > .user-btn").should("exist").and("have.text", "Login");
+    cy.get(".login-form > .user-btn").should("contain", "Login");
   });
 });

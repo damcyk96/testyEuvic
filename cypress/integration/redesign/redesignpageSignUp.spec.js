@@ -28,8 +28,6 @@ describe("Czy poprawnie renderuje SignUp", () => {
     cy.get(":nth-child(3) > .input").type("loremipsum");
   });
   it("should get a register button", () => {
-    cy.get(".login-form > .user-btn")
-      .should("exist")
-      .and("have.text", "Register");
+    cy.get(".login-form > .user-btn").should("contain", "Register");
   });
 });
