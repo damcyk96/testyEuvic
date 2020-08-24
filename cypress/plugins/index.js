@@ -18,4 +18,14 @@
 module.exports = (on, config) => {
   // `on` is used to hook into various events Cypress emits
   // `config` is the resolved Cypress config
-}
+};
+
+module.exports = (on) => {
+  on("before:browser:launch", (browser = {}, launchOptions) => {
+    if (browser.name === "chrome") {
+      launchOptions.args.push("--disable-extensions");
+
+      return launchOptions;
+    }
+  });
+};
