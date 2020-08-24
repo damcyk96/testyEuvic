@@ -4,7 +4,6 @@ const redesignPage = "https://musing-ramanujan-45d347.netlify.app/";
 const ryanSynopis =
   "As U.S. troops storm the beaches of Normandy, three brothers lie dead on the battlefield, with a fourth trapped behind enemy lines. Ranger captain John Miller and seven men are tasked with penetrating German-held territory and bringing the boy home.";
 
-const redesignPage = "https://musing-ramanujan-45d347.netlify.app/";
 describe("Testuje search na stronie glownej", () => {
   context("uruchomienie strony", () => {
     it("visit webpage", () => {
@@ -23,6 +22,9 @@ context("testy", () => {
     });
     it("should be visible saving private ryan in suggestions", () => {
       cy.get(".result").should("contain", "Saving Private Ryan");
+    });
+    it("should clear ryan from input", () => {
+      cy.get(".search-input").clear();
     });
   });
 
