@@ -1,9 +1,10 @@
 /// <reference types="Cypress" />
-
-let login = Math.random().toString(36).substring(7);
+let fakeLogin = Math.random().toString(36).substring(2, 7);
+let fakeDomain = Math.random().toString(36).substring(2, 7);
+let fakeEmail = fakeLogin + "@" + fakeDomain + ".com";
+let login = "mailtest";
 let email = login + "@mail.com";
-let shortPassword = Math.random().toString(36).substr(2, 5);
-let longPassword = Math.random().toString(36).substr(2, 15);
+let password = "qwerty12345";
 
 const basicPage = "https://brave-benz-5b19c8.netlify.app/";
 describe("Testuje strone rejestracji", () => {
@@ -18,17 +19,17 @@ beforeEach(() => {
 });
 
 context("testy", () => {
-  describe("Czy strona rejestracji poprawnie sie renderuje w ogole", () => {
-    it("should open sign up", () => {
-      cy.get(":nth-child(2) > .csacnt").click();
+  describe("Czy strona logowania poprawnie sie renderuje w ogole", () => {
+    it("should open login", () => {
+      cy.get(".knkMDf").click();
     });
     it("should check correct url", () => {
-      cy.url().should("eq", basicPage + "signup");
+      cy.url().should("eq", basicPage + "login");
     });
-    it("should have check title", () => {
+    it("should check correct title", () => {
       cy.get(".jaPgXM").should(
-        "have.text",
-        "First, create an Search Movie App account."
+        "contain",
+        "Sign in to your Search Movie App account."
       );
     });
     it("should check email input (label and placeholer)", () => {
@@ -48,11 +49,11 @@ context("testy", () => {
       );
     });
     it("should check create account button", () => {
-      cy.get(".sc-EHOje").should("have.text", "Create Account");
+      cy.get(".sc-EHOje").should("have.text", "Login");
     });
   });
 
-  describe("Czy wyświetli required po kliknięciu przycisku create account", () => {
+  describe("Czy wyświetli required po kliknięciu przycisku Login", () => {
     it("should click create account input", () => {
       cy.get(".sc-EHOje").click();
     });
@@ -64,9 +65,29 @@ context("testy", () => {
     });
   });
 
-  describe("Spróbuj utworzyć już istniejące konto", () => {
+  describe("Invalid mail in input", () => {
     it("should write a used email in input", () => {
-      cy.get(":nth-child(1) > .sc-jzJRlG").type("mail@mail.com");
+      cy.get(":nth-child(1) > .sc-jzJRlG").type(fakeLogin);
+    });
+    it("should write a used password in input", () => {
+      cy.get(":nth-child(3) > .sc-jzJRlG").type("qwertyasdfg");
+    });
+    it("should click login input", () => {
+      cy.get(".sc-EHOje").click();
+    });
+    it("should be visible invalid mail on failure", () => {
+      cy.get(".bRlJXZ").should("have.text", "Invalid email");
+    });
+  });
+
+  describe("Spróbuj zalogować się na nieistniejące konto", () => {
+    it("should clear inputs", () => {
+      cy.get(":nth-child(1) > .sc-jzJRlG").clear().should("have.text", "");
+      cy.get(":nth-child(3) > .sc-jzJRlG").clear().should("have.text", "");
+    });
+
+    it("should write a used email in input", () => {
+      cy.get(":nth-child(1) > .sc-jzJRlG").type(fakeEmail);
     });
     it("should write a used password in input", () => {
       cy.get(":nth-child(3) > .sc-jzJRlG").type("qwertyasdfg");
@@ -81,44 +102,14 @@ context("testy", () => {
     });
   });
 
-  describe("Spróbuj utworzyć konto bez @ w emailu", () => {
-    it("should write a used email in input", () => {
-      cy.get(":nth-child(1) > .sc-jzJRlG").clear().type(login);
-    });
-    it("should click create account input", () => {
-      cy.get(".sc-EHOje").click();
-    });
-    it("should be invalid mail in text", () => {
-      cy.get(".bRlJXZ").should("have.text", "Invalid email");
-    });
-  });
-
-  describe("Spróbuj utworzyć konto z zbyt krótkim hasłem", () => {
+  describe("Spróbuj zalogować się na konto", () => {
     it("should write a used email in input", () => {
       cy.get(":nth-child(1) > .sc-jzJRlG").clear().type(email);
     });
     it("should write a used password in input", () => {
-      cy.get(":nth-child(3) > .sc-jzJRlG").clear().type(shortPassword);
+      cy.get(":nth-child(3) > .sc-jzJRlG").clear().type(password);
     });
-    it("should click create account input", () => {
-      cy.get(".sc-EHOje").click();
-    });
-    it("should be visible that password is too short", () => {
-      cy.get(":nth-child(3) > .bRlJXZ").should(
-        "have.text",
-        "password should be 7 or more char"
-      );
-    });
-  });
-
-  describe("Spróbuj utworzyć konto", () => {
-    it("should write a used email in input", () => {
-      cy.get(":nth-child(1) > .sc-jzJRlG").clear().type(email);
-    });
-    it("should write a used password in input", () => {
-      cy.get(":nth-child(3) > .sc-jzJRlG").clear().type(longPassword);
-    });
-    it("should click create account input", () => {
+    it("should click login", () => {
       cy.get(".sc-EHOje").click();
     });
     it("should be on redirect on main page", () => {
