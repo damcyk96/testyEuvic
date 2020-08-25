@@ -45,13 +45,13 @@ context("testy", () => {
         "The Shawshank Redemption"
       );
     });
-    it("should click a details for saving private ryan", () => {
+    it("should click a details for The Shawshank Redemption", () => {
       cy.get(":nth-child(1) > .remove > .watchlist").click();
     });
     it("should check title", () => {
       cy.get(".movie-main-info > .color-blue").should(
         "contain",
-        "Saving Private Ryan"
+        "The Shawshank Redemption"
       );
     });
   });
