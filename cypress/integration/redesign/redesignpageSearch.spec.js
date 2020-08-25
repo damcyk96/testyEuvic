@@ -28,31 +28,31 @@ context("testy", () => {
     });
   });
 
-  describe("Czy wyszukiwanie działa poprawnie", () => {
-    it("should type shawshank in search input", () => {
-      cy.get(".search-input").type("The Shawshank Redemption{enter}");
-      cy.wait(5000);
-    });
-    it("should be visible our search as title", () => {
-      cy.get(".search-main-head").should(
-        "have.text",
-        "The Shawshank Redemption"
-      );
-    });
-    it("should be as first result", () => {
-      cy.get(":nth-child(1) > .result-full-info > .color-blue").should(
-        "contain",
-        "The Shawshank Redemption"
-      );
-    });
-    it("should click a details for The Shawshank Redemption", () => {
-      cy.get(":nth-child(1) > .remove > .watchlist").click();
-    });
-    it("should check title", () => {
-      cy.get(".movie-main-info > .color-blue").should(
-        "contain",
-        "The Shawshank Redemption"
-      );
-    });
-  });
+  // describe("Czy wyszukiwanie działa poprawnie", () => {
+  //   it("should type shawshank in search input", () => {
+  //     cy.get(".search-input").type("The Shawshank Redemption{enter}");
+  //     cy.wait(5000);
+  //   });
+  //   it("should be visible our search as title", () => {
+  //     cy.get(".search-main-head").should(
+  //       "have.text",
+  //       "The Shawshank Redemption"
+  //     );
+  //   });
+  //   it("should be as first result", () => {
+  //     cy.get(":nth-child(1) > .result-full-info > .color-blue").should(
+  //       "contain",
+  //       "The Shawshank Redemption"
+  //     );
+  //   });
+  //   it("should click a details for The Shawshank Redemption", () => {
+  //     cy.get(":nth-child(1) > .remove > .watchlist").click();
+  //   });
+  //   it("should check title", () => {
+  //     cy.get(".movie-main-info > .color-blue").should(
+  //       "contain",
+  //       "The Shawshank Redemption"
+  //     );
+  //   });
+  // });
 });
